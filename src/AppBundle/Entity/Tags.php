@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tags
@@ -26,11 +27,17 @@ class Tags
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Test")
+     * @ORM\ManyToMany(targetEntity="Test", mappedBy="tags")
      */
+    protected $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
 
     /**
      * Set name
@@ -54,6 +61,16 @@ class Tags
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * get tasks
+     *
+     * @return string
+     */
+    public function getTasks()
+    {
+        return $this->tasks;
     }
 }
 

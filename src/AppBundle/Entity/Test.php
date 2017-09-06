@@ -30,11 +30,8 @@ class Test
     protected $description;
 
     /**
-     * @var string
-     *
-     * @ORM\ManyToMany(targetEntity="Tags", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Tags", inversedBy="tasks", cascade="persist")
      * @ORM\JoinTable(name="tasks_tags")
-     * @ORM\Column(name="tags", type="string", length=255)
      */
     protected $tags;
 
@@ -67,6 +64,15 @@ class Test
         return $this->description;
     }
 
+    public function addTag(Tags $tag)
+    {
+        $this->tags->add($tag);
+    }
+
+    public function removeTag(Tags $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
     /**
      * get tags
      *

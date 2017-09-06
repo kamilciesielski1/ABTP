@@ -18,13 +18,6 @@ class TestConstrollerController extends Controller
     {
         $task = new Test();
 
-        $tag1 = new Tags();
-        $tag1->setName('tag1');
-        $task->getTags()->add($tag1);
-        $tag2 = new Tags();
-        $tag2->setName('tag2');
-        $task->getTags()->add($tag2);
-
         $form = $this->createForm(TestType::class, $task);
 
         $form->handleRequest($request);
