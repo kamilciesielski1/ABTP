@@ -26,9 +26,6 @@
             var $newLinkLi = $('<li></li>').append($addTagLink);
 
             $collectionHolder = $('ul.tags');
-            $collectionHolder.find('li').each(function() {
-                addTagFormDeleteLink($(this));
-            });
 
             $collectionHolder.append($newLinkLi);
 
@@ -57,9 +54,10 @@
                 // Display the form in the page in an li, before the "Add a tag" link li
                 var $newFormLi = $('<li></li>').append(newForm);
                 $newLinkLi.before($newFormLi);
-                addTagFormDeleteLink($newFormLi);
+
+                addTagFormDeleteLink($collectionHolder, $newFormLi);
             }
-            function addTagFormDeleteLink($tagFormLi) {
+            function addTagFormDeleteLink($collectionHolder, $tagFormLi) {
                 var $removeFormA = $('<a href="#">delete this tag</a>');
                 $tagFormLi.append($removeFormA);
 
@@ -69,6 +67,8 @@
 
                     // remove the li for the tag form
                     $tagFormLi.remove();
+                    var index = $collectionHolder.data('index');
+                    $collectionHolder.data('index', index - 1);
                 });
             }
         });
