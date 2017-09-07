@@ -12,6 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 class TestConstrollerController extends Controller
 {
     /**
+     * @Route("/")
+     */
+    public function mainAction()
+    {
+        return $this->render('AppBundle:TestConstroller:main.html.twig');
+    }
+
+    /**
      * @Route("/create")
      */
     public function createAction(Request $request)
