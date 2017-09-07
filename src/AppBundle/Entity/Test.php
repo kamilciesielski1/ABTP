@@ -35,6 +35,12 @@ class Test
      */
     protected $tags;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Address", cascade="persist")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     */
+    protected $address;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -81,6 +87,18 @@ class Test
     public function getTags()
     {
         return $this->tags;
+    }
+
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
     }
 }
 
