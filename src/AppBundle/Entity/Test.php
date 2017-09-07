@@ -41,6 +41,12 @@ class Test
      */
     protected $address;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tests")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -100,5 +106,18 @@ class Test
     {
         return $this->address;
     }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
 }
 

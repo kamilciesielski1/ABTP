@@ -8,7 +8,11 @@ use AppBundle\Entity\Test;
 use AppBundle\Entity\Tags;
 use AppBundle\Form\TestType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * @Security("has_role('ROLE_USER')")
+ */
 class TestConstrollerController extends Controller
 {
     /**
@@ -25,6 +29,7 @@ class TestConstrollerController extends Controller
     public function createAction(Request $request)
     {
         $task = new Test();
+        $task->setUser($this->getUser());
 
         $form = $this->createForm(TestType::class, $task);
 
