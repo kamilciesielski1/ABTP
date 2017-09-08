@@ -3,5 +3,36 @@
 {% block title %}AppBundle:Contact:create{% endblock %}
 
 {% block body %}
-<h1>Welcome to the Contact:create page</h1>
+    <div>
+    {{ form_start(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.lastName) }}
+        {{ form_row(form.description) }}
+
+        {{ form_row(form.address.city) }}
+        {{ form_row(form.address.street) }}
+        {{ form_row(form.address.houseNo) }}
+        {{ form_row(form.address.apartmentNo) }}
+
+        {{ form_row(form.email.email) }}
+        {{ form_row(form.email.email2) }}
+        {{ form_row(form.email.workEmail) }}
+
+        {{ form_row(form.telephone.mobileNo) }}
+        {{ form_row(form.telephone.homeNo) }}
+        {{ form_row(form.telephone.workNo) }}
+
+    <h3>Tags</h3>
+    <ul class="tags" data-prototype="{{ form_widget(form.abtags.vars.prototype)|e('html_attr') }}">
+        {% for tag in form.abtags %}
+            <li>{{ form_row(tag.name) }}</li>
+        {% endfor %}
+    </ul>
+
+        <input type="submit" formnovalidate value="ślij">
+    {{ form_end(form) }}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ asset('js/createContact.js') }}"></script>
 {% endblock %}

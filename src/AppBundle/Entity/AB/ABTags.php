@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\AB;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tags
@@ -27,6 +28,16 @@ class ABTags
      * @ORM\Column(name="name", type="string", length=100)
      */
     private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Contact", mappedBy="abtags", cascade="persist")
+     */
+    public $contacts;
+
+    public function __construct()
+    {
+        $this->contacts = new ArrayCollection();
+    }
 
 
     /**
@@ -61,6 +72,23 @@ class ABTags
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * get contacts
+     *
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param Contact $contact
+     */
+    public function addTag(Contact $contact)
+    {
+        $this->contacts->add($contact);
     }
 }
 

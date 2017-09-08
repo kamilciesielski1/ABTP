@@ -3,7 +3,8 @@
 namespace AppBundle\Entity\AB;
 
 use Doctrine\ORM\Mapping as ORM;
-use Fixtures\Bundles\XmlBundle\Entity\Test;
+use Doctrine\Common\Collections\ArrayCollection;
+use AppBundle\Entity\AB\ABTags;
 
 /**
  * Contact
@@ -39,24 +40,35 @@ class Contact
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="Address")
+     * @ORM\OneToOne(targetEntity="Address", cascade="persist")
      */
     private $address;
 
     /**
-     * @ORM\OneToOne(targetEntity="Email")
+     * @ORM\OneToOne(targetEntity="Email", cascade="persist")
      */
     private $email;
 
     /**
-     * @ORM\OneToOne(targetEntity="Telephone")
+     * @ORM\OneToOne(targetEntity="Telephone", cascade="persist")
      */
     private $telephone;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ABTags", inversedBy="contacts", cascade="persist")
+     * @ORM\JoinTable(name="contacts_tags")
+     */
+    public $abtags;
+
+    public function __construct()
+    {
+        $this->abtags = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -210,6 +222,32 @@ class Contact
         $this->telephone = $telephone;
 
         return $this;
+    }
+
+    /**
+     * @param ABTags $tag
+     */
+    public function addTag(ABTags $tag)
+    {
+        $this->abtags->add($tag);
+    }
+
+    /**
+     * @param ABTags $tag
+     */
+    public function removeTag(ABTags $tag)
+    {
+        $this->abtags->removeElement($tag);
+    }
+
+    /**
+     * get abtags
+     *
+     * @return string
+     */
+    public function getABTags()
+    {
+        return $this->abtags;
     }
 }
 
