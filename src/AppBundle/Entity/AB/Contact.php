@@ -3,6 +3,7 @@
 namespace AppBundle\Entity\AB;
 
 use Doctrine\ORM\Mapping as ORM;
+use Fixtures\Bundles\XmlBundle\Entity\Test;
 
 /**
  * Contact
@@ -41,6 +42,21 @@ class Contact
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Address")
+     */
+    private $address;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Email")
+     */
+    private $email;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Telephone")
+     */
+    private $telephone;
 
     /**
      * Get id
@@ -122,6 +138,78 @@ class Contact
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Get address
+     *
+     * @return object
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set address
+     *
+     * @param $address
+     *
+     * @return Contact
+     */
+    public function setAddress(Address $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return object
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set email
+     *
+     * @param $email
+     *
+     * @return Contact
+     */
+    public function setEmail(Email $email = null)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return object
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set telephone
+     *
+     * @param $telephone
+     *
+     * @return Contact
+     */
+    public function setTelephone(Telephone $telephone = null)
+    {
+        $this->telephone = $telephone;
+
+        return $this;
     }
 }
 

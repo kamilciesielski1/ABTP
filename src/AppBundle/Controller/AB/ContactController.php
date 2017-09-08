@@ -12,6 +12,7 @@ class ContactController extends Controller
      */
     public function createAction()
     {
+
         return $this->render('AppBundle:Contact:create.html.twig', array(
             // ...
         ));
