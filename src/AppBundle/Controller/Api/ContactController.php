@@ -1,24 +1,33 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: kamilciesielski1
+ * Date: 11.09.17
+ * Time: 11:28
+ */
 
-namespace AppBundle\Controller\AB;
+namespace AppBundle\Controller\Api;
 
-use AppBundle\Entity\AB\Contact;
-use AppBundle\Entity\AB\ABTags;
-use AppBundle\Form\ContactType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity\AB\Contact;
+use AppBundle\Form\ContactType;
 
 class ContactController extends Controller
 {
     /**
-     * @Route("/create")
+     * @Route("api/contacts", name="api_create")
+     * @Method("POST")
      */
     public function createAction(Request $request)
     {
         $contact = new Contact();
 
-        $form = $this->createForm(ContactType::class, $contact, array('action'=>$this->generateUrl('api_create')));
+        $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request);
 
@@ -28,11 +37,8 @@ class ContactController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($contact);
             $em->flush();
+
         }
-
-        return $this->render('AppBundle:Contact:create.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return new Response($contact, 201);
     }
-
 }
