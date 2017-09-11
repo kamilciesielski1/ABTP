@@ -28,8 +28,8 @@ class ContactType extends AbstractType
 
         $builder->add('abtags', CollectionType::class, array(
             'entry_type' => ChoiceType::class,
-            'entry_options' => array(
-                'choices' => $this->tagsChoices),
+//            'entry_options' => array(
+//                'choices' => $this->tagsChoices),
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,

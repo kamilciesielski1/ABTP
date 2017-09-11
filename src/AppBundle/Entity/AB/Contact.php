@@ -65,6 +65,12 @@ class Contact
      */
     public $abtags;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="contacts")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user;
+
     public function __construct()
     {
         $this->abtags = new ArrayCollection();
@@ -239,15 +245,12 @@ class Contact
     {
         $this->abtags->removeElement($tag);
     }
-
-    /**
-     * get abtags
-     *
-     * @return string
-     */
-    public function getABTags()
-    {
-        return $this->abtags;
-    }
+     /**
+      * @param $user
+      */
+     public function setUser($user)
+     {
+         $this->user = $user;
+     }
 }
 

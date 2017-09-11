@@ -18,10 +18,12 @@ class ContactController extends Controller
     public function createAction(Request $request)
     {
         $contact = new Contact();
-        $tagsChoices = $this->getDoctrine()
-            ->getRepository(ABTagsRepository::class)
-            ->getUsersTags();
+        $contact->setUser($this->getUser());
 
+        $tagsChoices = $this->getDoctrine()
+            ->getRepository('AppBundle:AB\ABTags')
+            ->tagsChoices($this->getUser()->getId());
+        dump($tagsChoices);die;
         $form = $this->createForm(ContactType::class, $contact, array(
             'tags' => $tagsChoices
         ));
