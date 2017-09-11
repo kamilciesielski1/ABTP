@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\AB\Contact;
 use AppBundle\Entity\AB\ABTags;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -26,8 +27,9 @@ class ContactType extends AbstractType
         $builder->add('telephone', TelephoneType::class);
 
         $builder->add('abtags', CollectionType::class, array(
-            'entry_type' => ABTagsType::class,
-            //'entry_options' => array('label' => false),
+            'entry_type' => ChoiceType::class,
+            'entry_options' => array(
+                'choices' => $this->tagsChoices),
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,

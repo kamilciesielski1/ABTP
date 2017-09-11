@@ -5,6 +5,7 @@ namespace AppBundle\Controller\AB;
 use AppBundle\Entity\AB\Contact;
 use AppBundle\Entity\AB\ABTags;
 use AppBundle\Form\ContactType;
+use AppBundle\Repository\ABTagsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +18,13 @@ class ContactController extends Controller
     public function createAction(Request $request)
     {
         $contact = new Contact();
+        $tagsChoices = $this->getDoctrine()
+            ->getRepository(ABTagsRepository::class)
+            ->getUsersTags();
 
-        $form = $this->createForm(ContactType::class, $contact);
+        $form = $this->createForm(ContactType::class, $contact, array(
+            'tags' => $tagsChoices
+        ));
 
         $form->handleRequest($request);
 
